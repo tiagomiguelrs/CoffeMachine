@@ -152,6 +152,8 @@ while ON:
             while still_want_beverage:
                 if is_balance_enough(selected_beverage, final_balance):
                     brew(selected_beverage)
+                    final_balance -= MENU[selected_beverage]["cost"]
+                    print(f"Your balance is {final_balance}")
                     still_want_beverage = False
 
                 else:
