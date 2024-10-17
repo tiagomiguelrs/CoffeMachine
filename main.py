@@ -23,7 +23,7 @@ def report():
     print("Your resources are:\n")
     print(f"Water: {resources['water']} mL")
     print(f"Milk: {resources['milk']} mL")
-    print(f"Coffee: {resources['coffee']} mL")
+    print(f"Coffee: {resources['coffee']} g")
 
 
 # TODO-3 Add the function that fills the ingredients with a predetermined quantity
@@ -38,7 +38,7 @@ def fill(water_q: int, milk_q: int, coffee_q: int):
 def fill_quantity():
     water_q = int(input("How many mL of water do you wish to add to the machine? "))
     milk_q = int(input("How many mL of milk do you wish to add to the machine? "))
-    coffee_q = int(input("How many mL of coffee do you wish to add to the machine? "))
+    coffee_q = int(input("How many g of coffee do you wish to add to the machine? "))
     if any([water_q < 0, milk_q < 0, coffee_q < 0]):   # Evaluates if any of the fill quantities is negative
         print("Cannot fill resources with negative volumes.")
     else:
@@ -152,12 +152,14 @@ while ON:
             while still_want_beverage:
                 if is_balance_enough(selected_beverage, final_balance):
                     brew(selected_beverage)
-                    final_balance -= MENU[selected_beverage]["cost"]
-                    print(f"Your balance is {final_balance}")
+                    final_balance -= MENU[selected_beverage]["cost"] * 100
+                    print(f"Your balance is {final_balance/100}")
                     still_want_beverage = False
 
                 else:
-                    print(f"There isn't enough money for a {selected_beverage}. Your balance is ${final_balance/100}. The {selected_beverage} costs ${MENU[selected_beverage]['cost']}")
+                    print(f"There isn't enough money for a {selected_beverage}. "
+                          f"Your balance is ${final_balance/100}. "
+                          f"The {selected_beverage} costs ${MENU[selected_beverage]['cost']}")
                     money_choice = input("Do you want to add more money? Type [y] for yes or [n] for no: ").lower()
                     if money_choice == "y":
                         final_balance = count_money(final_balance)
